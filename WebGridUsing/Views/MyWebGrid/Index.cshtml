@@ -1,0 +1,92 @@
+﻿@using WebGridUsing.Models
+@using System.Web.Helpers
+
+@{
+    ViewBag.Title = "Index";
+}
+<script>
+
+    function mytable_function() {
+
+        toastr["info"]("Table's Ajax methods was runned by alican!")
+    }
+
+</script>
+
+<h2>Index</h2>
+<hr />
+
+@model List<Book>
+
+@{
+    WebGrid grid = new WebGrid(
+
+        source: Model,
+        columnNames: new[] { "Id", "Name", "Author", "PublishingDate", "Price" },
+        defaultSort: "Name",
+        rowsPerPage: 8,
+        canPage: true,
+        canSort: true,
+        ajaxUpdateContainerId: "mytable",  //Tablomuzun id sini veriyoruz Ajax metodu için.
+        ajaxUpdateCallback: "mytable_function", //Ajax isleminden sonra calistirlmesini istediğiniz js leri buraya yazabilirsiniz.
+        pageFieldName: "pageno",
+        sortFieldName: "numbered",
+        sortDirectionFieldName: "ascdesc"
+
+        );
+}
+
+<div class="row">
+
+    <div class="col-md-12">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-md-4">  @Html.TextBox("searchid", null, new { placeholder = "searching", @class = "form-control" })</div> @*lowercase girme zorunlulugunu Site.cs içerisinde #searchid ye css kodu yazarak engelledim *@
+                <div class="col-md-8"><button type="submit" class="btn btn-success"> <i class="fas fa-search">Search</i></button></div>
+            </div>
+
+
+        }
+    </div>
+
+    <div class="col-md-12">
+        <hr />
+    </div>
+
+
+    <div class="col-md-12 ">
+        @grid.GetHtml(
+         caption: "Book List Information",
+    tableStyle: "table table-striped table-dark",
+    headerStyle: null,
+    footerStyle: null,
+    // rowStyle: "alert alert-danger",
+    // alternatingRowStyle: "alert alert-warning",
+    selectedRowStyle: "alert alert-danger" ,
+    displayHeader:true,
+    fillEmptyRows:true,
+    emptyRowCellValue:"No value",
+    mode:WebGridPagerModes.All,    // göstermek için All yaptık yoksa FirstLast,NextPrevious,Numeric gibi ayırabilirsin daha mantıklı olur.
+    numericLinksCount:3,
+    columns:new[]   //Id kolonu gibi her kolunun görüntülenmesini istemezsiniz ekranda işte columns içerisinde tanımladıgınız array içerisinde ne yazarsanız ekrana View de sadece o kolonlar görüntülenir.
+    {
+        grid.Column("Name","Book Name"),  // Birinci parametre property adi ,ikinci parametre bunu View de hangi isim ile gösterelim(yani takma adi)
+         grid.Column("Author","Book Author"),
+          grid.Column("PublishingDate","Book PublishingDate"),
+           grid.Column("Price","Book Price($)")
+
+    },
+    firstText:"[First]",
+    lastText:"[Last]",
+    previousText:"[Previous]",
+    nextText:"[Next]",
+    htmlAttributes:new {id="mytable"}  // ornegin Html Attributes ile mesela tablomuza id verme işlemini yaptık.
+
+    )
+    </div>
+</div>
+
+
+@*<a class="btn btn-info" onclick="toastr.info('Hi! I am info message.');">Info message</a>*@
+

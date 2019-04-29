@@ -1,0 +1,67 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+#mytable thead tr th a {
+    color: cadetblue;
+}
+
+#mytable thead tr:hover {
+    background-color: cadetblue;
+   
+}
+
+    #mytable thead tr:hover th a {
+        color: wheat;
+    }
+
+    #mytable thead tr th a:hover{
+        color:black;
+    }
+
+
+#mytable tr td {
+    color: lightpink;
+}
+
+#mytable tfoot tr td a {
+    color: deeppink;
+}
+
+#mytable tr:hover {
+    background-color: palevioletred;
+    color: red;
+}
+
+    #mytable tr:hover td {
+        color: white;
+    }
+
+#mytable tr td:hover {
+    background-color:plum;
+    color:purple;
+}
+
+#mytable tfoot :hover
+{
+    background-color:lightpink !important;
+    color:white;
+}
+
+#searchid{
+    text-transform:lowercase;
+}
